@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Compte à rebours Noël 🎄</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #002b5c, #0a4a7b, #136fa7);
+        font-family: "Comic Sans MS", sans-serif;
+        color: white;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-top: 50px;
+        text-shadow: 0px 0px 20px white;
+    }
+
+    #countdown {
+        font-size: 2.5rem;
+        margin-top: 20px;
+        font-weight: bold;
+        text-shadow: 0px 0px 10px #00eaff;
+    }
+
+    /* Effet flocons */
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 20px;
+        pointer-events: none;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(110vh); }
+    }
+</style>
+</head>
+<body>
+
+<h1>⛄ Compte à rebours jusqu'à Noël 2025 🎄</h1>
+<div id="countdown"></div>
+
+<script>
+// Date cible
+const christmas = new Date("December 24, 2025 00:00:00").getTime();
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = christmas - now;
+
+    let days = Math.floor(diff / (1000*60*60*24));
+    let hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    let minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+    let seconds = Math.floor((diff % (1000*60)) / 1000);
+
+    if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "🎁 Joyeux Noël !!!";
+    } else {
+        document.getElementById("countdown").innerHTML = 
+            days + " jours " + hours + "h " + minutes + "m " + seconds + "s";
+    }
+}
+
+// Mise à jour toutes les secondes
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Générateur de flocons ❄️
+function neige() {
+    const flocon = document.createElement("div");
+    flocon.classList.add("snowflake");
+    flocon.textContent = "❄";
+    flocon.style.left = Math.random() * 100 + "vw";
+    flocon.style.animationDuration = (3 + Math.random() * 5) + "s";
+    document.body.appendChild(flocon);
+
+    setTimeout(() => flocon.remove(), 8000);
+}
+
+setInterval(neige, 200);
+</script>
+
+</body>
+</html>
